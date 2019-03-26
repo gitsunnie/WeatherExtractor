@@ -1,4 +1,4 @@
-#
+﻿#
 # OpenWeatherMap の API を利用してその日の気温を取得する
 
 # OpenWeatherMap API Tutorial Page
@@ -79,6 +79,8 @@ with open('TestWeather.csv', mode='a') as f:
     writer = csv.writer(f)
     writer.writerow([present_date, present_time, last_update_time, sunrise, sunset, temperature, humidity, pressure,
                      weather])
+
+print('a')
 
 
 
