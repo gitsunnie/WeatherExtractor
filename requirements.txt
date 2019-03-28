@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 selenium==3.141.0
+=======
+urllib3==1.22
+>>>>>>> origin/master
 # gunicorn==19.9.0
 bottle==0.12.9
