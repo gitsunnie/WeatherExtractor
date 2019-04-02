@@ -57,7 +57,7 @@ def auth_google():
         if file['title'] == 'WeatherResult.csv':  # WeatherResult.csv を取得してダウンロードする
             content = file.GetContentString()
             file2 = file
-            print(file2)
+            # print(file2)
             break
     # print(content)
     # print(type(content))
