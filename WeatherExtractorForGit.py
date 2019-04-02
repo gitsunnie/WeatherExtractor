@@ -42,16 +42,30 @@ def auth_google():
     file_list = drive.ListFile({'q': query}).GetList()
     for file1 in file_list:
         print('title: %s, id: %s' % (file1['title'], file1['id']))
+        print(file1)
     """
 
     # WeatherResult.csv を操作してみる
-    drive_csv_id = '1sCCMDIAMfHTt013R28lVxQj31VlgMopV'
-    file = drive.CreateFile({'id': drive_csv_id})
-    content = file.GetContentString()
-    print(content)
-    print(type(content))
-    file.GetContentFile('a.csv')  # csv ファイルとしてダウンロード
-    file.GetContentFile('a.txt')
+    # drive_csv_id = '1sCCMDIAMfHTt013R28lVxQj31VlgMopV'
+    # file = drive.CreateFile({'id': drive_csv_id})
+    # file = drive.CreateFile({'title': 'a.csv',
+    #                          'parents': [{'id': '1X_lNjACsoUWbnz3Y-PSoP5e4hplV_f4d'}]})
+    drive_folder_id = '1X_lNjACsoUWbnz3Y-PSoP5e4hplV_f4d'
+    query = '"{0}" in parents and trashed=false'.format(drive_folder_id)
+    file_list = drive.ListFile({'q': query}).GetList()
+    for file in file_list:
+        if file['title'] == 'WeatherResult.csv':  # WeatherResult.csv を取得してダウンロードする
+            content = file.GetContentString()
+            file2 = file
+            print(file2)
+            break
+    # print(content)
+    # print(type(content))
+    file2.GetContentFile('a.csv')  # csv ファイルとしてダウンロード
+    file2.Trash()  # WeatherResult.csv をゴミ箱に移動
+    file2.UnTrash()  # ゴミ箱の外に移動?
+    file2.Delete()  # Hard Delete
+    # file.GetContentFile('a.txt')
 
     return drive
 
@@ -132,8 +146,10 @@ def write_csv():
 
 
 def upload_file(drive):
+    # PythonWorks > Git > WeatherExtractor のフォルダ ID
     file2 = drive.CreateFile({'parents': [{'id': '1X_lNjACsoUWbnz3Y-PSoP5e4hplV_f4d'}]})
     file2.SetContentFile('a.csv')
+    file2['title'] = 'WeatherResult.csv'
     file2.Upload()
 
 
